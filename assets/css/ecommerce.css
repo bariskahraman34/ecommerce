@@ -33,7 +33,7 @@ a{
 
 .logo{
     color: #1D2026;
-
+    cursor: pointer;
 }
 
 .nav-elements-container{
