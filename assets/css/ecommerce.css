@@ -282,10 +282,14 @@ a{
 
 .product-right-side-container .quantity-container{
     display: flex;
-    gap: 33px;
     align-items: center;
     background: rgba(246, 248, 253, 1);
     border-radius: 10px;
+}
+
+.product-right-side-container .quantity-content{
+    width: 60px;
+    text-align: center;
 }
 
 .fa-solid.fa-star{
