@@ -33,7 +33,7 @@ async function listProducts(){
                     </div>
                     <div class="rating-container">
                         <div class="rating-score">${product.rating}</div>
-                        <div class="ratings">
+                        <div class="ratings" data-productid=${product.id}>
                             <div class="star">
                                 <i class="fa-regular fa-star"></i>
                             </div>
@@ -62,22 +62,29 @@ async function listProducts(){
             </a>
         </div>
         `;
-        
+        ratingProduct(product.rating,product.id);
     }
-    bindEvent(".product","click",clickedProduct);
+    bindEvents(".product","click",clickedProduct);
 }
 
-function bindEvent(selector , eventType , cbFunction){
-    const products = document.querySelectorAll(selector)
-    for (const selectedProduct of products) {
-        selectedProduct.addEventListener(eventType,cbFunction);
+function bindEvents(selector , eventType , cbFunction){
+    const selectedElements = document.querySelectorAll(selector)
+    for (const selectedElement of selectedElements) {
+        selectedElement.addEventListener(eventType,cbFunction);
     }
 }
 
-function clickedProduct(e){
+function clickedProduct(){
     console.log(this.dataset.productid);
     clickedProductStorage.product = this.dataset.productid;
     saveClickedProductToLocalStorage();
+}
+
+function ratingProduct(rating,productId){
+    const ratingStar = document.querySelectorAll(`.ratings[data-productid="${productId}"] .star`);
+    for (let i = 0; i < Math.ceil(rating) ; i++) {
+        ratingStar[i].innerHTML = `<i class="fa-solid fa-star"></i>`
+    }
 }
 
 listProducts();
