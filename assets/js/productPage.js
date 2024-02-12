@@ -22,7 +22,6 @@ async function listProduct(){
     const product = await fetchDummyJson(`products/${clickedProductId}`);
     const title = document.querySelector('title');
     title.textContent = `${product.brand} - ${product.title}`;
-    console.log(product);
     container.innerHTML = 
     `
     <div class="product-container">
@@ -66,19 +65,22 @@ async function listProduct(){
         <img src="${image}" alt="">
         `
     }
-    bindEvents(".quantity-up",".quantity-content","click",quantityUp)
-    bindEvents(".quantity-down",".quantity-content","click",quantityDown)
-    bindEvents('.big-btn',".quantity-content","click",addToBasket);
+    bindEvents(".quantity-up",".quantity-content","click",product.stock,quantityUp)
+    bindEvents(".quantity-down",".quantity-content","click",product.stock,quantityDown)
+    bindEvents('.big-btn',".quantity-content","click",product.stock,addToBasket);
 }
 
-function bindEvents(selector , totalQuantity, eventType, cbFunction){
+function bindEvents(selector , totalQuantity, eventType,stock,cbFunction){
     const element = document.querySelector(selector);
-    element.addEventListener(eventType ,(e) => cbFunction(e, totalQuantity))
+    element.addEventListener(eventType ,(e) => cbFunction(e, totalQuantity, stock))
 }
 
-function quantityUp(e,totalQuantity){
+function quantityUp(e,totalQuantity,stock){
     e.preventDefault();
     const quantityContent = document.querySelector(totalQuantity);
+    if(Number(quantityContent.textContent) >= stock ){
+        return
+    }
     quantityContent.textContent = Number(quantityContent.textContent) + 1 ;
 }
 
@@ -96,7 +98,6 @@ function addToBasket(e,totalQuantity){
     const quantityContent = document.querySelector(totalQuantity);
     let isFound = false
     for (const basket of basketStorage) {
-        console.log(basket.id)
         if(basket.id == quantityContent.dataset.productid && Number(quantityContent.textContent) > 0){
             isFound = true;
             basket.quantity = Number(quantityContent.textContent);
