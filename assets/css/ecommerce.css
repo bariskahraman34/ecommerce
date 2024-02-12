@@ -4,3 +4,47 @@
     box-sizing: border-box;
     font-family: 'Kumbh Sans', sans-serif;
 }
+
+body{
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.top-header{
+    padding: 28px 0px 34px 0px;
+    width: 1110px;
+    margin-inline:auto;
+    border-bottom: 1px solid rgba(228, 233, 242, 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left-side{
+    display: flex;
+    gap: 56px;
+    align-items: baseline;
+}
+
+.logo{
+    color: #1D2026;
+
+}
+
+.nav-elements-container{
+    display: flex;
+    list-style: none;
+    gap: 32px;
+}
+
+.nav-elements-container a{
+    text-decoration: none;
+    color: rgba(105, 112, 125, 1);
+    font-size: 15px;
+    line-height: 26px;
+}
+
+.header-right-side{
+    display: flex;
+    align-items: center;
+    gap: 46px;
+}
