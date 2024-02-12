@@ -133,11 +133,11 @@ a{
     color: rgba(29, 32, 38, 1);
 }
 
-.product-brand-description .brand{
+.brand{
     color: #FF7E1B;
 }
 
-.product-info-area .badge-old-price{
+.badge-old-price{
     color: #B6BCC8;
     font-weight: 700;
     line-height: 26px;
@@ -145,7 +145,7 @@ a{
     margin-right: 15px;
 }
 
-.product-info-area .badge-new-price{
+.badge-new-price{
     font-weight: 700;
     font-size: 28px;
     line-height: 35px;
@@ -158,4 +158,122 @@ a{
 
 .product-info-area .ratings{
     display: flex;
+}
+
+
+/* Product Page Styling */
+
+.product-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 125px;
+}
+
+.big-image-container{
+    width: 445px;
+    height: 445px;
+}
+
+.big-image-container img{
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    border: 10px;
+}
+
+.small-image-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.small-image-container img{
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.small-image-container .current-image{
+    border: 2px solid rgba(255, 126, 27, 1);
+    opacity: .3;
+}
+
+.product-right-side-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.product-right-side-container .brand{
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 2px;
+}
+
+.product-right-side-container .name{
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 48px;
+    color: rgba(29, 32, 38, 1);
+    margin-top: 27px;
+    margin-bottom: 32px;
+}
+
+.product-right-side-container .description{
+    line-height: 26px;
+    color: rgba(105, 112, 125, 1);
+    margin-bottom: 24px;
+}
+
+.product-right-side-container .discount-rate{
+    padding: 6px 8px;
+    background-color: rgba(255, 238, 226, 1);
+    border-radius: 10px;
+    color: #FF7E1B;
+    font-family: Kumbh Sans;
+    font-weight: 700;
+    line-height: 20px;
+    margin-left: 16px;
+}
+
+.product-right-side-container .price-container{
+    margin-bottom: 32px;
+}
+
+.product-right-side-container .add-card-container{
+    display: flex;
+    gap: 16px;
+}
+
+.product-right-side-container .big-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 77px;
+    gap: 16px;
+    border: none;
+    background-color: #FF7E1B;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 20px 50px -20px rgba(255, 126, 27, 1);
+    font-weight: 700;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.product-right-side-container .quantitiy-container a{
+    padding: 18px 16px;
+    font-weight: 700;
+    color: #FF7E1B;
+}
+
+.product-right-side-container .quantitiy-container{
+    display: flex;
+    gap: 33px;
+    align-items: center;
+    background: rgba(246, 248, 253, 1);
+    border-radius: 10px;
 }
