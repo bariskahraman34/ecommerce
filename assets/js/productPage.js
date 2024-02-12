@@ -1,11 +1,9 @@
 const BASE_URL = "https://dummyjson.com";
-const productPage = document.querySelector('.product-page');
+const container = document.querySelector('.container');
 
-let clickedProductStorage = JSON.parse(localStorage.getItem('clickedProduct')) || {product:0};
+let clickedProductStorage = JSON.parse(localStorage.getItem('clickedProduct'));
 
-function saveClickedProductToLocalStorage(){
-  return localStorage.setItem('clickedProduct',JSON.stringify(clickedProductStorage));
-}
+let clickedProductId = clickedProductStorage.product 
 
 async function fetchDummyJson(endpoint){
     const response = await fetch(`${BASE_URL}/${endpoint}`);
@@ -13,12 +11,9 @@ async function fetchDummyJson(endpoint){
     return items;
 }
 
-async function listProducts(){
-    const items = await fetchDummyJson("products?limit=100");
-    const products = items.products;
-    console.log(products);
-    for (const product of products) {
-      productPage.innerHTML += 
+async function listProduct(){
+    const product = await fetchDummyJson(`products/${clickedProductId}`);
+      container.innerHTML = 
         `
         <div class="product-col-3">
             <a href="product-page.html" class="product" data-productid=${product.id}>
@@ -62,22 +57,6 @@ async function listProducts(){
             </a>
         </div>
         `;
-        
-    }
-    bindEvent(".product","click",clickedProduct);
 }
 
-function bindEvent(selector , eventType , cbFunction){
-    const products = document.querySelectorAll(selector)
-    for (const selectedProduct of products) {
-        selectedProduct.addEventListener(eventType,cbFunction);
-    }
-}
-
-function clickedProduct(e){
-    console.log(this.dataset.productid);
-    clickedProductStorage.product = this.dataset.productid;
-    saveClickedProductToLocalStorage();
-}
-
-listProducts();
+listProduct();
