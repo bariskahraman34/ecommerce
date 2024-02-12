@@ -2,12 +2,18 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Kumbh Sans', sans-serif;
 }
 
 body{
+    font-family: 'Kumbh Sans', sans-serif;
     background-color: rgba(255, 255, 255, 1);
 }
+
+a{
+    text-decoration: none;
+}
+
+/* Header Styling */
 
 .top-header{
     padding: 28px 0px 34px 0px;
@@ -36,8 +42,7 @@ body{
     gap: 32px;
 }
 
-.nav-elements-container a{
-    text-decoration: none;
+.nav-elements-container .nav-element{
     color: rgba(105, 112, 125, 1);
     font-size: 15px;
     line-height: 26px;
@@ -47,4 +52,97 @@ body{
     display: flex;
     align-items: center;
     gap: 46px;
+}
+
+.header-right-side button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+
+/* Main Page Product Styling */
+
+.container{
+    width: 1110px;
+    margin-inline: auto;
+    padding: 90px 48px;
+}
+
+.product-page{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.product-col-3{
+    width: 25%;
+}
+
+.product-col-3 a{
+    display: inline-block;
+    border-radius: 10px;
+    color: #1D2026;
+    background-color: rgb(248,249,250);
+}
+
+.product{
+    background-color: #69707D;
+    box-shadow: 0px 20px 50px -20px rgba(29, 32, 38, 0.5031);
+}
+
+.image-container{
+    position: relative;
+}
+
+.image-container img{
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.image-container .badge-sale{
+    position: absolute;
+    background-color: #FF7E1B;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.product-info-area{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.product-info-area .product-brand-description{
+    font-weight: 700;
+    line-height: 48px;
+    color: rgba(29, 32, 38, 1);
+}
+
+.product-info-area .badge-old-price{
+    color: #B6BCC8;
+    font-weight: 700;
+    line-height: 26px;
+    text-decoration: line-through;
+    margin-right: 15px;
+}
+
+.product-info-area .badge-new-price{
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 35px;
+}
+
+.product-info-area .rating-container{
+    display: flex;
+    gap: 10px;
+}
+
+.product-info-area .ratings{
+    display: flex;
 }
