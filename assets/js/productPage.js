@@ -1,9 +1,16 @@
 const BASE_URL = "https://dummyjson.com";
 const container = document.querySelector('.container');
 
-let clickedProductStorage = JSON.parse(localStorage.getItem('clickedProduct'));
+const urlParams = new URLSearchParams(window.location.search);
+const clickedProductId = urlParams.get('id');
+if(!clickedProductId){
+    window.location = "/not-found.html";
+}
 
-let clickedProductId = clickedProductStorage.product 
+let basketStorage = JSON.parse(localStorage.getItem('basket')) || [];
+function saveProductToBasket(){
+    return localStorage.setItem('basket',JSON.stringify(basketStorage));
+}
 
 async function fetchDummyJson(endpoint){
     const response = await fetch(`${BASE_URL}/${endpoint}`);
@@ -40,9 +47,9 @@ async function listProduct(){
                 <span class="badge-old-price">$${(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}</span>
             </div>
             <div class="add-card-container">
-                <div class="quantitiy-container">
+                <div class="quantity-container">
                     <a href="#" class="quantity-down">-</a>
-                    <strong>0</strong>
+                    <strong class="quantity-content" data-productid=${product.id}>${basketStorage.filter(item => item.id == product.id).shift()?.quantity ?? "0"}</strong>
                     <a href="#" class="quantity-up">+</a>
                 </div>
                 <button class="big-btn">
@@ -59,6 +66,50 @@ async function listProduct(){
         <img src="${image}" alt="">
         `
     }
+    bindEvents(".quantity-up",".quantity-content","click",quantityUp)
+    bindEvents(".quantity-down",".quantity-content","click",quantityDown)
+    bindEvents('.big-btn',".quantity-content","click",addToBasket);
+}
+
+function bindEvents(selector , totalQuantity, eventType, cbFunction){
+    const element = document.querySelector(selector);
+    element.addEventListener(eventType ,(e) => cbFunction(e, totalQuantity))
+}
+
+function quantityUp(e,totalQuantity){
+    e.preventDefault();
+    const quantityContent = document.querySelector(totalQuantity);
+    quantityContent.textContent = Number(quantityContent.textContent) + 1 ;
+}
+
+function quantityDown(e,totalQuantity){
+    e.preventDefault();
+    const quantityContent = document.querySelector(totalQuantity);
+    if(!Number(quantityContent.textContent) > 0){
+        return
+    }
+    quantityContent.textContent = Number(quantityContent.textContent) - 1 ;
+}
+
+function addToBasket(e,totalQuantity){
+    e.preventDefault();
+    const quantityContent = document.querySelector(totalQuantity);
+    let isFound = false
+    for (const basket of basketStorage) {
+        console.log(basket.id)
+        if(basket.id == quantityContent.dataset.productid && Number(quantityContent.textContent) > 0){
+            isFound = true;
+            basket.quantity = Number(quantityContent.textContent);
+            break;
+        }
+    }
+    if(!isFound && Number(quantityContent.textContent) > 0){
+        basketStorage.push({
+            id:Number(clickedProductId),
+            quantity: Number(quantityContent.textContent)
+        })
+    }
+    saveProductToBasket();
 }
 
 listProduct();
