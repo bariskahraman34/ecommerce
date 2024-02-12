@@ -170,6 +170,10 @@ a{
     gap: 125px;
 }
 
+.product-left-side-container{
+    width: 445px;
+}
+
 .big-image-container{
     width: 445px;
     height: 445px;
@@ -186,6 +190,9 @@ a{
 .small-image-container{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 31px;
+    margin-top: 32px;
 }
 
 .small-image-container img{
@@ -276,4 +283,8 @@ a{
     align-items: center;
     background: rgba(246, 248, 253, 1);
     border-radius: 10px;
+}
+
+.fa-solid.fa-star{
+    color: #FF7E1B;
 }
