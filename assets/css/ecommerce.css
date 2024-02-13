@@ -387,3 +387,67 @@ a{
     color: #fff;
     padding: 20px;
 }
+
+/* Basket Product quantity */
+
+.basket-btn{
+    position: relative;
+}
+
+.basket-btn span{
+    position: absolute;
+    background-color: #FF7E1B;
+    color: white;
+    top: 5px;
+    right: 6px;
+    padding: 2px 8px 1px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12px;
+
+}
+
+/* Modal Styling */
+
+dialog{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    border-radius: 8px;
+    border: none;
+    padding: 30px;
+}
+
+dialog::backdrop{
+    background: rgb(0 0 0 / 25%);
+}
+
+
+dialog button{
+    border: none;
+    border-radius: 8px;
+}
+
+dialog #no{
+    background-color: #67727e;
+    padding: 10px 20px;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+dialog #yes{
+    background-color: #ed6368;
+    padding: 10px 20px;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+dialog h3,
+dialog p{
+    margin-bottom: 24px;
+}
