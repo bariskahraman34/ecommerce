@@ -2,6 +2,7 @@ const BASE_URL = "https://dummyjson.com";
 const container = document.querySelector('.container');
 
 
+
 const urlParams = new URLSearchParams(window.location.search);
 const clickedProductId = urlParams.get('id');
 if(!clickedProductId){
@@ -23,6 +24,7 @@ async function fetchDummyJson(endpoint){
 
 async function listProduct(){
     const product = await fetchDummyJson(`products/${clickedProductId}`);
+    console.log(product);
     const title = document.querySelector('title');
     title.textContent = `${product.brand} - ${product.title}`;
     container.innerHTML = 
@@ -118,6 +120,7 @@ function addToBasket(e,totalQuantity){
     }
     saveProductToBasket();
     showSuccessMessage();
+    calculateBasket();
 }
 
 function bindImages(smallImage,bigImage,eventType,cbFunction){
