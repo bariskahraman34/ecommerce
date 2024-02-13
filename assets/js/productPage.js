@@ -1,6 +1,7 @@
 const BASE_URL = "https://dummyjson.com";
 const container = document.querySelector('.container');
 
+
 const urlParams = new URLSearchParams(window.location.search);
 const clickedProductId = urlParams.get('id');
 if(!clickedProductId){
@@ -11,6 +12,8 @@ let basketStorage = JSON.parse(localStorage.getItem('basket')) || [];
 function saveProductToBasket(){
     return localStorage.setItem('basket',JSON.stringify(basketStorage));
 }
+
+let productsStorage = JSON.parse(localStorage.getItem('products'));
 
 async function fetchDummyJson(endpoint){
     const response = await fetch(`${BASE_URL}/${endpoint}`);
@@ -27,7 +30,7 @@ async function listProduct(){
     <div class="product-container">
         <div class="product-left-side-container">
             <div class="big-image-container">
-                <img src="${product.images[0]}" alt="">
+                <img class="big-image" src="${product.images[0]}" alt="">
             </div>
             <div class="small-image-container">
             </div>
@@ -62,12 +65,15 @@ async function listProduct(){
     for (const image of product.images) {
         imagesContainer.innerHTML += 
         `
-        <img src="${image}" alt="">
+        <img class="small-image" src="${image}" alt="">
         `
     }
+    document.querySelector(".small-image").classList.add('current-image');
+    
     bindEvents(".quantity-up",".quantity-content","click",product.stock,quantityUp)
     bindEvents(".quantity-down",".quantity-content","click",product.stock,quantityDown)
     bindEvents('.big-btn',".quantity-content","click",product.stock,addToBasket);
+    bindImages(".small-image",".big-image","click",selectedImage);
 }
 
 function bindEvents(selector , totalQuantity, eventType,stock,cbFunction){
@@ -96,7 +102,7 @@ function quantityDown(e,totalQuantity){
 function addToBasket(e,totalQuantity){
     e.preventDefault();
     const quantityContent = document.querySelector(totalQuantity);
-    let isFound = false
+    let isFound = false;
     for (const basket of basketStorage) {
         if(basket.id == quantityContent.dataset.productid && Number(quantityContent.textContent) > 0){
             isFound = true;
@@ -111,6 +117,37 @@ function addToBasket(e,totalQuantity){
         })
     }
     saveProductToBasket();
+    showSuccessMessage();
+}
+
+function bindImages(smallImage,bigImage,eventType,cbFunction){
+    const smallImages = document.querySelectorAll(smallImage);
+    const currentImage = document.querySelector(bigImage);
+    for (const image of smallImages) {
+        image.addEventListener(eventType,(e) => cbFunction(e,currentImage,smallImages));
+    }
+}
+
+function selectedImage(e,currentImage,smallImages){
+    for (const image of smallImages) {
+        image.classList.remove('current-image')
+    }
+    currentImage.src = e.target.src;
+    e.target.classList.add('current-image')
+}
+
+function showSuccessMessage(){
+    const messageBox = document.querySelector('.message-box');
+    messageBox.innerHTML += '<div class="message">Ürün Sepete Eklendi!</div>';
+    messageBox.style.display = "block";
+    setTimeout(function() {
+        messageBox.style.opacity = "0";
+        messageBox.innerHTML = "";
+        setTimeout(function() {
+            messageBox.style.display = "none";
+            messageBox.style.opacity = "1";
+        }, 1000);
+    }, 3000);
 }
 
 listProduct();
