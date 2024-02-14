@@ -52,13 +52,14 @@ async function listProduct(){
             </div>
             <div class="add-card-container">
                 <div class="quantity-container">
-                    <a href="#" class="quantity-down">-</a>
+                    <a href="#" class="quantity-btn quantity-down">-</a>
                     <strong class="quantity-content" data-productid=${product.id}>${basketStorage.filter(item => item.id == product.id).shift()?.quantity ?? "0"}</strong>
-                    <a href="#" class="quantity-up">+</a>
+                    <a href="#" class="quantity-btn quantity-up">+</a>
                 </div>
                 <button class="big-btn">
                     <img src="assets/icons/basket-white.svg" alt="">
-                    Add To Cart</button>
+                    ${basketStorage.find(item => item.id == product.id) ? 'Update Cart' : 'Add To Cart'}
+                </button>
             </div>
         </div>
     </div>
@@ -109,7 +110,17 @@ function addToBasket(e,totalQuantity){
         if(basket.id == quantityContent.dataset.productid && Number(quantityContent.textContent) > 0){
             isFound = true;
             basket.quantity = Number(quantityContent.textContent);
+            quantityContent.textContent = `${basket.quantity}`
             break;
+        }else if(basket.id == quantityContent.dataset.productid && Number(quantityContent.textContent) == 0){
+            isFound = true;
+            let findProduct = basketStorage.findIndex(item => {
+                return item.id === Number(quantityContent.dataset.productid)
+            })
+            if(findProduct !== -1){
+                basketStorage.splice(findProduct,1);
+                localStorage.setItem('basket',JSON.stringify(basketStorage));
+            }
         }
     }
     if(!isFound && Number(quantityContent.textContent) > 0){
@@ -118,6 +129,7 @@ function addToBasket(e,totalQuantity){
             quantity: Number(quantityContent.textContent)
         })
     }
+    listProduct();
     saveProductToBasket();
     showSuccessMessage();
     calculateBasket();
@@ -141,7 +153,12 @@ function selectedImage(e,currentImage,smallImages){
 
 function showSuccessMessage(){
     const messageBox = document.querySelector('.message-box');
-    messageBox.innerHTML += '<div class="message">Ürün Sepete Eklendi!</div>';
+    const quantityContent = document.querySelector('.quantity-content');
+    if(Number(quantityContent.textContent) > 0){
+        messageBox.innerHTML += '<div class="success-message">Ürün Sepete Eklendi!</div>';
+    }else{
+        messageBox.innerHTML += '<div class="removed-message">Ürün Sepetten Kaldırıldı.!</div>';
+    }
     messageBox.style.display = "block";
     setTimeout(function() {
         messageBox.style.opacity = "0";
