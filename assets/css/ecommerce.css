@@ -17,7 +17,6 @@ a{
 
 .top-header{
     position: relative;
-    padding: 28px 0px 34px 0px;
     width: 1110px;
     margin-inline:auto;
     border-bottom: 1px solid rgba(228, 233, 242, 1);
@@ -26,10 +25,22 @@ a{
     align-items: center;
 }
 
+.top-header a{
+    display: inline-block;
+    padding: 28px 0px 34px 0px;
+    transition: border .3s ease;
+    border-bottom: 4px solid transparent;
+}
+
+.header-left-side a:has(img){
+    padding: 0px !important;
+    border: none !important;
+}
+
 .header-left-side{
     display: flex;
     gap: 56px;
-    align-items: baseline;
+    align-items: center;
 }
 
 .logo{
@@ -55,7 +66,7 @@ a{
     gap: 46px;
 }
 
-.header-right-side button{
+.header-right-side button:not(.checkout-btn){
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -83,6 +94,7 @@ a{
     width: 31%;
     border: 1px solid #FF7E1B;
     border-radius: 10px;
+    transition: transform .3s ease;
 }
 
 .product-col-3 a{
@@ -195,7 +207,7 @@ a{
 
 .small-image-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 31px;
     margin-top: 32px;
@@ -207,6 +219,7 @@ a{
     object-fit: contain;
     border-radius: 10px;
     cursor: pointer;
+    transition: opacity .3s ease;
 }
 
 .small-image-container .current-image{
@@ -267,6 +280,7 @@ a{
     justify-content: center;
     padding: 18px 77px;
     gap: 16px;
+    font-size: 16px;
     border: none;
     background-color: #FF7E1B;
     color: white;
@@ -275,6 +289,7 @@ a{
     font-weight: 700;
     line-height: 20px;
     cursor: pointer;
+    transition: background .3s ease;
 }
 
 .product-right-side-container .quantity-container a{
@@ -379,11 +394,20 @@ a{
     right: 10%;
 }
 
-.message{
+.success-message{
     display: block;
     margin-bottom: 20px;
     border-radius: 5px;
     background-color: green;
+    color: #fff;
+    padding: 20px;
+}
+
+.removed-message{
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: red;
     color: #fff;
     padding: 20px;
 }
@@ -440,7 +464,7 @@ dialog #no{
 }
 
 dialog #yes{
-    background-color: #ed6368;
+    background-color: #FF7E1B;
     padding: 10px 20px;
     color: white;
     text-transform: uppercase;
@@ -450,4 +474,77 @@ dialog #yes{
 dialog h3,
 dialog p{
     margin-bottom: 24px;
+}
+
+.big-btn:hover,
+.checkout-btn:hover{
+    background: rgba(255, 171, 106, 1);
+}
+
+.quantity-btn{
+    color: #FF7E1B;
+    transition: color .3s ease;
+}
+
+.quantity-btn:hover{
+    color: #FFAB6A !important;
+}
+
+
+.small-image-container img:hover{
+    opacity: .5;
+}
+
+.top-header a:hover{
+    border-bottom: 4px solid #FF7E1B;
+}
+
+.product-col-3:hover{
+    transform: scale(1.05) translateY(-10px);
+}
+
+/* Checkout Btn */
+.checkout-btn-div{
+    margin-top: 30px;
+    text-align: center;
+}
+.checkout-btn{
+    border: none;
+    width: 80%;
+    padding: 18px 77px;
+    text-align: center;
+    background-color: #FF7E1B;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 20px 50px -20px rgba(255, 126, 27, 1);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background .3s ease;
+}
+
+/* Checkout Success Message */
+.success-message-dialog{
+    text-align: center;
+}
+
+.success-message-dialog h3{
+    border-bottom: 1px solid #B6BCC8;
+    padding-bottom: 20px;
+}
+
+.success-message-dialog i{
+    font-size: 42px;
+}
+
+.success-message-dialog p{
+    padding: 20px;
+}
+
+.success-message-dialog button{
+    background-color: #67727e;
+    padding: 10px 20px;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
 }
