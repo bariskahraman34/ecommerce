@@ -65,8 +65,10 @@ function calculateBasket(){
         </div>
         `;
     }
-    document.querySelector('.close-offcanvas-btn').addEventListener('click',closeCanvas);
+    const closeCanvasBtn = document.querySelector('.close-offcanvas-btn');
+    closeCanvasBtn.addEventListener('click',closeCanvas);
     calculateBasketQuantity();
+    checkoutFunc();
 }
 
 function calculateBasketQuantity(){
@@ -129,5 +131,50 @@ window.addEventListener('click',function(e){
         basketResult.classList.remove('show');
     }
 })
+
+function checkoutFunc(){
+    if(basketResultInfos.length > 0){
+        basketResult.innerHTML += 
+        `
+        <div class="checkout-btn-div">
+            <button class="checkout-btn">Checkout</button>
+        </div>
+        `;
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        checkoutBtn.addEventListener('click',doneCheckout);
+    }
+}
+
+function doneCheckout(){
+    localStorage.removeItem('basket');
+    closeCanvas();
+    if(document.querySelector('.dialog')){
+        document.querySelector('.dialog').remove();
+    }
+    const modal = 
+    `
+    <dialog class="dialog success-message-dialog">
+        <h3>Purchase Successful!</h3>
+        <div><i class="fa-solid fa-circle-check fa-bounce" style="color: #0d8251;"></i></div>
+        <p>
+            Success! Your transaction has been completed successfully
+        </p>
+        <button class="close-modal">Close</button>
+    </dialog>
+    `;
+    const body = document.querySelector('body');
+    body.insertAdjacentHTML('beforeend',modal);
+    setTimeout(function(){
+        document.querySelector('.dialog').showModal();
+    },2000)
+    const modalCloseBtn = document.querySelector('.close-modal');
+    modalCloseBtn.addEventListener('click',closeModal);
+    return calculateBasket();
+}
+
+function closeModal(){
+    const modal = document.querySelector('.success-message-dialog');
+    modal.close();
+}
 
 calculateBasketQuantity();
