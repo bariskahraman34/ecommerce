@@ -42,7 +42,7 @@ function calculateBasket(){
                 }
             }
     }
-        
+    
     for (const basket of basketResultInfos) {
         basketResult.innerHTML += 
         `
@@ -65,10 +65,19 @@ function calculateBasket(){
         </div>
         `;
     }
+    if(basketResultInfos.length > 0){
+        basketResult.innerHTML += 
+        `
+        <div class="checkout-btn-div">
+            <button class="checkout-btn">Checkout</button>
+        </div>
+        `;
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        checkoutBtn.addEventListener('click',doneCheckout);
+    }
     const closeCanvasBtn = document.querySelector('.close-offcanvas-btn');
     closeCanvasBtn.addEventListener('click',closeCanvas);
     calculateBasketQuantity();
-    checkoutFunc();
 }
 
 function calculateBasketQuantity(){
@@ -131,19 +140,6 @@ window.addEventListener('click',function(e){
         basketResult.classList.remove('show');
     }
 })
-
-function checkoutFunc(){
-    if(basketResultInfos.length > 0){
-        basketResult.innerHTML += 
-        `
-        <div class="checkout-btn-div">
-            <button class="checkout-btn">Checkout</button>
-        </div>
-        `;
-        const checkoutBtn = document.querySelector('.checkout-btn');
-        checkoutBtn.addEventListener('click',doneCheckout);
-    }
-}
 
 function doneCheckout(){
     localStorage.removeItem('basket');
