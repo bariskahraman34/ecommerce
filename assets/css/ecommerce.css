@@ -203,6 +203,7 @@ a{
     max-width: 100%;
     object-fit: contain;
     border: 10px;
+    cursor: pointer;
 }
 
 .small-image-container{
@@ -259,7 +260,6 @@ a{
     background-color: rgba(255, 238, 226, 1);
     border-radius: 10px;
     color: #FF7E1B;
-    font-family: Kumbh Sans;
     font-weight: 700;
     line-height: 20px;
     margin-left: 16px;
@@ -329,9 +329,11 @@ a{
     border-radius: 8px;
     z-index: 999;
     transition: 1s;
+    opacity: 0;
 }
 
 .basket-result.show{
+    opacity:1;
     right: 0;
 }
 
@@ -446,7 +448,7 @@ dialog{
 }
 
 dialog::backdrop{
-    background: rgb(0 0 0 / 25%);
+    background: rgba(0,0,0,0.6);
 }
 
 
@@ -547,4 +549,77 @@ dialog p{
     color: white;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+/* Slider */
+
+.slider{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    width: 550px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.slider .big-image-container{
+    width: 550px;
+    height: 550px;
+    position: relative;
+}
+
+.slider .big-image-container .big-image{
+    border-radius: 20px;
+    cursor: default;
+}
+
+.slider .small-image-container{
+    margin-top: 40px;
+}
+
+
+dialog:focus-visible{
+    outline: none;
+}
+
+.slider .slider-xmark{
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    right: 0px;
+    color: #fff;
+    font-size: 32px;
+    transition: color .2s ease;
+}
+
+.slider .slider-xmark:hover{
+    color: #FF7E1B;
+}
+
+.slider .fa-chevron-right{
+    right: -28px;
+}
+
+.slider .fa-chevron-left{
+    left: -28px;
+}
+
+.slider .fa-chevron-left,
+.slider .fa-chevron-right{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 18px 22px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color .2s ease;
+    font-size: 20px;
+}
+
+.slider .fa-chevron-left:hover,
+.slider .fa-chevron-right:hover{
+    color: #FF7E1B;
 }
