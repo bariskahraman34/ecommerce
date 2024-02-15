@@ -133,6 +133,20 @@ async function deleteProduct(e){
     const response = await deleteItems(`products/${productId}`);
     console.log(response);
     e.target.parentElement.parentElement.remove();
+    showSuccessMessage("del");
+}
+
+function showSuccessMessage(status){
+    const messageBox = 
+    `
+    <div class="message-box">
+        <div class="success-message">${status == "del" ? "Ürün Başarıyla Kaldırıldı!" : "Ürün Başarıyla Eklendi!"} </div>
+    </div>
+    `;
+    document.querySelector('body').insertAdjacentHTML('beforeend',messageBox);
+    setTimeout(function() {
+        document.querySelector('.message-box').remove();
+    }, 2000);
 }
 
 async function addProduct(e){
@@ -191,6 +205,7 @@ async function addProduct(e){
     </div>
     `
     e.target.reset();
+    showSuccessMessage("add")
 }
 
 const addProductForm = document.querySelector("#add-product-form");
