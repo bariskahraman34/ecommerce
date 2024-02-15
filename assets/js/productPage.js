@@ -184,12 +184,70 @@ function imagesSlider(imageContainer){
     const sliderModal = 
     `
     <dialog class="slider">
+        <i class="fa-solid fa-xmark slider-xmark"></i>
         ${imageContainer.innerHTML}
     </dialog>
     `;
     const body = document.querySelector('body');
     body.insertAdjacentHTML('beforeend',sliderModal);
     document.querySelector('.slider').showModal();
+    bindImages(".slider .small-image",".slider .big-image","click",selectedImage);
+    const closeModalIcon = document.querySelector('.slider-xmark');
+    closeModalIcon.addEventListener('click',function(){
+        document.querySelector('.slider').remove();
+    })
+    const productBigImages = document.querySelector('.slider .big-image-container');
+    const nextBtn = '<i class="fa-solid fa-chevron-right slider-btn" id="next"></i>';
+    const previousBtn = '<i class="fa-solid fa-chevron-left slider-btn" id="previous"></i>'
+    productBigImages.insertAdjacentHTML('beforeend',nextBtn)
+    productBigImages.insertAdjacentHTML('afterbegin',previousBtn)
+    const smallImages = document.querySelectorAll('.slider .small-image');
+    let i = 0
+    for (const image of smallImages) {
+        image.id = `image-${i}`;
+        image.dataset.imageid = i;
+        i++;
+    }
+    const sliderBtns = document.querySelectorAll('.slider .slider-btn');
+    for (const btn of sliderBtns) {
+        btn.addEventListener('click',changeCurrentImage);
+    }
+}
+
+function changeCurrentImage(e){
+    const bigImage = document.querySelector('.slider .big-image');
+    const currentImage = document.querySelector('.slider .current-image');
+    const nextImageDataId = parseInt(currentImage.dataset.imageid) + 1;
+    const previousImageDataId = parseInt(currentImage.dataset.imageid) - 1;
+    if(e.target.id == "next"){
+        const nextImage = document.querySelector(`.slider #image-${nextImageDataId}`);
+        if(!nextImage){
+            return
+        }
+        bigImage.src = nextImage.src;
+        const smallImages = document.querySelectorAll('.slider .small-image');
+        for (const image of smallImages) {
+            if(parseInt(image.dataset.imageid) === nextImageDataId){
+                image.classList.add('current-image');
+            }else{
+                image.classList.remove('current-image');
+            }
+        }
+    }else{
+        const previousImage = document.querySelector(`.slider #image-${previousImageDataId}`);
+        if(!previousImage){
+           return 
+        }
+        bigImage.src = previousImage.src;
+        const smallImages = document.querySelectorAll('.slider .small-image');
+        for (const image of smallImages) {
+            if(parseInt(image.dataset.imageid) === previousImageDataId){
+                image.classList.add('current-image');
+            }else{
+                image.classList.remove('current-image');
+            }
+        }
+    }
 }
 
 
