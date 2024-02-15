@@ -623,3 +623,68 @@ dialog:focus-visible{
 .slider .fa-chevron-right:hover{
     color: #FF7E1B;
 }
+
+/* Update and Delete Buttons Styling */
+.user-products{
+    margin-bottom: 50px;
+}
+.user-btn-container{
+    display: flex;
+    justify-content: space-between
+}
+.user-btn{
+    border: none;
+    background-color: #FF7E1B;
+    color: white;
+    padding: 20px 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#add-product-form{
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 20px;
+    align-items: center;
+}
+
+#add-product-form input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#add-product-form textarea{
+    resize: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#add-product-form button{
+    border: none;
+    background-color: #FF7E1B;
+    padding: 10px 30px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.submit-btn{
+    border:none;
+    margin-top:10px;
+    background-color: #FF7E1B;
+    color:white;
+    padding: 5px 15px;
+}
+
+.update-page{
+    display: inline-block;
+    color: #1D2026;
+    background-color: rgb(248,249,250);
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
