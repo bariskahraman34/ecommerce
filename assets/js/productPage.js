@@ -210,19 +210,20 @@ function imagesSlider(imageContainer){
     }
     const sliderBtns = document.querySelectorAll('.slider .slider-btn');
     for (const btn of sliderBtns) {
-        btn.addEventListener('click',changeCurrentImage);
+        btn.addEventListener('click',changeSliderCurrentImage);
     }
 }
 
-function changeCurrentImage(e){
+function changeSliderCurrentImage(e){
     const bigImage = document.querySelector('.slider .big-image');
     const currentImage = document.querySelector('.slider .current-image');
-    const nextImageDataId = parseInt(currentImage.dataset.imageid) + 1;
-    const previousImageDataId = parseInt(currentImage.dataset.imageid) - 1;
+    let nextImageDataId = parseInt(currentImage.dataset.imageid) + 1;
+    let previousImageDataId = parseInt(currentImage.dataset.imageid) - 1;
     if(e.target.id == "next"){
-        const nextImage = document.querySelector(`.slider #image-${nextImageDataId}`);
+        let nextImage = document.querySelector(`.slider #image-${nextImageDataId}`);
         if(!nextImage){
-            return
+            nextImage = document.querySelector('.slider #image-0');
+            nextImageDataId = 0;
         }
         bigImage.src = nextImage.src;
         const smallImages = document.querySelectorAll('.slider .small-image');
@@ -234,12 +235,13 @@ function changeCurrentImage(e){
             }
         }
     }else{
-        const previousImage = document.querySelector(`.slider #image-${previousImageDataId}`);
+        let previousImage = document.querySelector(`.slider #image-${previousImageDataId}`);
+        const smallImages = document.querySelectorAll('.slider .small-image');
         if(!previousImage){
-           return 
+           previousImage = document.querySelector(`.slider #image-${smallImages.length - 1}`);
+           previousImageDataId = smallImages.length - 1; 
         }
         bigImage.src = previousImage.src;
-        const smallImages = document.querySelectorAll('.slider .small-image');
         for (const image of smallImages) {
             if(parseInt(image.dataset.imageid) === previousImageDataId){
                 image.classList.add('current-image');
