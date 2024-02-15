@@ -27,6 +27,14 @@ async function putItems(endpoint, bodyObject){
     return updatedItem;
 }
 
+async function deleteItems(endpoint){
+    const response = await fetch(`${BASE_URL}/${endpoint}`,{
+        method : "DELETE"
+    })
+    const deletedItem = await response.json();
+    return deletedItem
+}
+
 async function listProducts(){
     const items = await fetchDummyJson("products");
     const products = items.products;
@@ -120,9 +128,11 @@ async function changeTitle(e,productId){
     e.target.parentElement.innerHTML = updatedProduct.title;
 }
   
-function deleteProduct(e){
+async function deleteProduct(e){
     const productId = parseInt(e.target.dataset.productid);
-    console.log(productId);
+    const response = await deleteItems(`products/${productId}`);
+    console.log(response);
+    e.target.parentElement.parentElement.remove();
 }
 
 async function addProduct(e){
