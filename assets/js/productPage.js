@@ -112,6 +112,7 @@ function addToBasket(e,totalQuantity){
             isFound = true;
             basket.quantity = Number(quantityContent.textContent);
             quantityContent.textContent = `${basket.quantity}`
+            showSuccessMessage("updated");
             break;
         }else if(basket.id == quantityContent.dataset.productid && Number(quantityContent.textContent) == 0){
             isFound = true;
@@ -129,10 +130,10 @@ function addToBasket(e,totalQuantity){
             id:Number(clickedProductId),
             quantity: Number(quantityContent.textContent)
         })
+        showSuccessMessage("new");
     }
     listProduct();
     saveProductToBasket();
-    showSuccessMessage();
     calculateBasket();
 }
 
@@ -152,11 +153,11 @@ function selectedImage(e,currentImage,smallImages){
     e.target.classList.add('current-image')
 }
 
-function showSuccessMessage(){
+function showSuccessMessage(status){
     const messageBox = document.querySelector('.message-box');
     const quantityContent = document.querySelector('.quantity-content');
     if(Number(quantityContent.textContent) > 0){
-        messageBox.innerHTML += '<div class="success-message">Ürün Sepete Eklendi!</div>';
+        messageBox.innerHTML += `<div class="success-message">${status == "updated" ? 'Sepet Güncellendi!' : 'Ürün Sepete Eklendi!'}</div>`;
     }else{
         messageBox.innerHTML += '<div class="removed-message">Ürün Sepetten Kaldırıldı.!</div>';
     }
