@@ -122,6 +122,7 @@ function addToBasket(e,totalQuantity){
             if(findProduct !== -1){
                 basketStorage.splice(findProduct,1);
                 localStorage.setItem('basket',JSON.stringify(basketStorage));
+                showSuccessMessage("removed");
             }
         }
     }
@@ -156,10 +157,10 @@ function selectedImage(e,currentImage,smallImages){
 function showSuccessMessage(status){
     const messageBox = document.querySelector('.message-box');
     const quantityContent = document.querySelector('.quantity-content');
-    if(Number(quantityContent.textContent) > 0){
+    if(Number(quantityContent.textContent) > 0 && status == "updated" || status == "new"){
         messageBox.innerHTML += `<div class="success-message">${status == "updated" ? 'Sepet Güncellendi!' : 'Ürün Sepete Eklendi!'}</div>`;
-    }else{
-        messageBox.innerHTML += '<div class="removed-message">Ürün Sepetten Kaldırıldı.!</div>';
+    }else if(status == "removed"){
+        messageBox.innerHTML += '<div class="removed-message">Ürün Sepetten Kaldırıldı!</div>';
     }
     messageBox.style.display = "block";
     setTimeout(function() {
