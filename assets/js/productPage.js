@@ -24,7 +24,6 @@ async function fetchDummyJson(endpoint){
 
 async function listProduct(){
     const product = await fetchDummyJson(`products/${clickedProductId}`);
-    console.log(product);
     const title = document.querySelector('title');
     title.textContent = `${product.brand} - ${product.title}`;
     container.innerHTML = 
@@ -53,12 +52,12 @@ async function listProduct(){
             <div class="add-card-container">
                 <div class="quantity-container">
                     <a href="#" class="quantity-btn quantity-down">-</a>
-                    <strong class="quantity-content" data-productid=${product.id}>${basketStorage.filter(item => item.id == product.id).shift()?.quantity ?? "0"}</strong>
+                    <strong class="quantity-content" data-productid=${product.id}>${JSON.parse(localStorage.getItem('basket'))?.filter(item => item.id == product.id).shift()?.quantity ?? "0"}</strong>
                     <a href="#" class="quantity-btn quantity-up">+</a>
                 </div>
                 <button class="big-btn">
                     <img src="assets/icons/basket-white.svg" alt="">
-                    ${basketStorage.find(item => item.id == product.id) ? 'Update Cart' : 'Add To Cart'}
+                    ${JSON.parse(localStorage.getItem('basket'))?.find(item => item.id == product.id) ? 'Update Cart' : 'Add To Cart'}
                 </button>
             </div>
         </div>

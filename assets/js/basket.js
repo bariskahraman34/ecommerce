@@ -125,9 +125,9 @@ function deleteProduct(id){
                 if(findProduct !== -1){
                     basketSaved.splice(findProduct,1);
                     localStorage.setItem('basket',JSON.stringify(basketSaved));
-                    showSuccessMessage("removed");
+                    listProduct();
                     calculateBasket();
-                    return listProduct();
+                    showSuccessMessage("removed");
                 }
             }
         })
