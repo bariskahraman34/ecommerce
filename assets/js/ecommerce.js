@@ -10,6 +10,7 @@ async function fetchDummyJson(endpoint){
 async function listProducts(){
     const items = await fetchDummyJson("products?limit=100");
     const products = items.products;
+    localStorage.setItem('products',JSON.stringify(items.products));
     for (const product of products) {
         productPage.innerHTML += 
             `
